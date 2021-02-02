@@ -38,3 +38,5 @@ console.log(p1.nome)
 const p2 = new Produto('Geladeira', 1000, 0.8)
 console.log(p2.preco)
 console.log(p2.precoFinal)
+
+console.log(typeof Produto)
