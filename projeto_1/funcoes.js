@@ -4,9 +4,11 @@ const path = require('path')
 function lerDiretorio(caminho) {
     return new Promise((resolve, reject) => {
         try {
-            let arquivos = fs.readdirSync(caminho)
-            arquivos = arquivos.map(arquivo => path.join(caminho, arquivo))
-            resolve(arquivos)
+            const arquivos = fs.readdirSync(caminho)
+            const arquivosCompletos = arquivos.map(arquivo => {
+                return path.join(caminho, arquivo)
+            })
+            resolve(arquivosCompletos)
         } catch (e) {
             reject(e)
         }
@@ -29,7 +31,7 @@ function lerArquivos(caminhos) {
 }
 
 function elementosTerminadosCom(padraoTextual) {
-    return function(array) {
+    return function (array) {
         return array.filter(el => el.endsWith(padraoTextual))
     }
 }
@@ -39,7 +41,7 @@ function removerElementosSeVazio(array) {
 }
 
 function removerElementosSeIncluir(padraoTextual) {
-    return function(array) {
+    return function (array) {
         return array.filter(el => !el.includes(padraoTextual))
     }
 }
@@ -52,23 +54,21 @@ function removerElementosSeApenasNumero(array) {
 }
 
 function removerSimbolos(simbolos) {
-    return function(array) {
+    return function (array) {
         return array.map(el => {
-            let textoSemSimbolos = el
-            simbolos.forEach(simbolo => {
-                textoSemSimbolos = textoSemSimbolos.split(simbolo).join(' ')
-            })
-            return textoSemSimbolos
+            return simbolos.reduce((acc, simbolo) => {
+                return acc.split(simbolo).join(' ')
+            }, el)
         })
     }
 }
 
-function mesclarElementos (array) {
+function mesclarElementos(array) {
     return array.join(' ')
 }
 
 function separarTextoPor(simbolo) {
-    return function(texto) {
+    return function (texto) {
         return texto.split(simbolo)
     }
 }
@@ -77,9 +77,17 @@ function agruparElementos(palavras) {
     return Object.values(palavras.reduce((acc, palavra) => {
         const el = palavra.toLowerCase()
         const qtde = acc[el] ? acc[el].qtde + 1 : 1
-        acc[el] = { elemento: el, qtde}
+        acc[el] = { elemento: el, qtde }
         return acc
-    },{}))
+    }, {}))
+}
+
+function ordenarPorAtribNumerico(attr, ordem = 'asc') {
+    return function (array) {
+        const asc = (o1, o2) => o1[attr] - o2[attr]
+        const desc = (o1, o2) => o2[attr] - o1[attr]
+        return array.sort(ordem === 'asc' ? asc : desc)
+    }
 }
 
 module.exports = {
@@ -93,5 +101,6 @@ module.exports = {
     removerElementosSeApenasNumero,
     removerSimbolos,
     separarTextoPor,
-    agruparElementos
+    agruparElementos,
+    ordenarPorAtribNumerico
 }
