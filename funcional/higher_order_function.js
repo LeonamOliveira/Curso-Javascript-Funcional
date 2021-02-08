@@ -1,6 +1,6 @@
-// Uma função pura é uma função em que o valor 
-// de retorno é determinado apenas por seus valores
-// de entrada, sem efeitos colaterais observáveis. 
+// Funções que operam em outras funções,
+// tomando-as como argumentos ou retornando-as, 
+// são chamadas de higher-order function.
 
 function executar(fn, ...params) {
     return function(textoInicial) {
