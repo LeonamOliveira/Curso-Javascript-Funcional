@@ -16,7 +16,7 @@ const palavrasMaisUsadas = fn.composicao(
     fn.mesclarElementos,
     fn.separarTextoPor('\n'),
     fn.removerElementosSeVazio,
-    fn.removerElementosSeIncluir('-->'),
+    fn.removerElementosSeIncluir('-->'  ),
     fn.removerElementosSeApenasNumero,
     fn.removerSimbolos(simbolos),
     fn.mesclarElementos,

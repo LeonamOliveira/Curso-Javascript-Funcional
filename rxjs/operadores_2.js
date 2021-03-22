@@ -1,6 +1,6 @@
 const { XMLHttpRequest } = require('xmlhttprequest')
 const { ajax } = require('rxjs/ajax')
-const { map, concatAll } = require('rxjs/operators')
+const { map, concatAll, first } = require('rxjs/operators')
 
 
 ajax({
