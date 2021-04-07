@@ -27,3 +27,8 @@ function getSubject() {
 const sub = getSubject() 
 sub.subscribe(console.log)
 sub.subscribe(console.log)
+
+// Observable é o cara com quem eu me registro
+// Observer é o interessado em ser notificado quando acontece o evento
+
+// Subject gera o valor uma vez e manda para todos os interessados.
