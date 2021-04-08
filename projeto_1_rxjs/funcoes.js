@@ -40,8 +40,14 @@ function elementosTerminadosCom(padraoTextual) {
     }))
 }
 
-function removerElementosSeVazio(array) {
-    return array.filter(el => el.trim())
+function removerElementosSeVazio() {
+    return createPipeableOperator(subscriber => ({
+        next(texto) {
+            if (texto.trim()) {
+                subscriber.next(texto)
+            }
+        }
+    }))
 }
 
 function removerElementosSeIncluir(padraoTextual) {
@@ -72,10 +78,16 @@ function mesclarElementos(array) {
 }
 
 function separarTextoPor(simbolo) {
-    return function (texto) {
-        return texto.split(simbolo)
-    }
+    return createPipeableOperator(subscriber => ({
+        next(texto) {
+            texto.split(simbolo).forEach(parte => {
+                subscriber.next(parte)
+            })
+        }
+    }))
 }
+
+
 
 function agruparElementos(palavras) {
     return Object.values(palavras.reduce((acc, palavra) => {
