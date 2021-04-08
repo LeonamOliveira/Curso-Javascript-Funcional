@@ -15,12 +15,12 @@ fn.lerDiretorio(caminho)
         fn.lerArquivo(),
         fn.separarTextoPor('\n'),
         fn.removerElementosSeVazio(),
+        fn.removerElementosSeApenasNumero(),
     )
     .subscribe(console.log)
-/
+
 //     .then(fn.mesclarElementos)
-//     .then(fn.removerElementosSeIncluir('-->'))
-//     .then(fn.removerElementosSeApenasNumero)
+
 //     .then(fn.removerSimbolos(simbolos))
 //     .then(fn.mesclarElementos)
 //     .then(fn.separarTextoPor(' '))

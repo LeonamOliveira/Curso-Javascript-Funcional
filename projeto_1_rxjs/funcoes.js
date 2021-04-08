@@ -1,4 +1,5 @@
 const fs = require('fs')
+const { parse } = require('path')
 const path = require('path')
 const { Observable } = require('rxjs')
 
@@ -50,18 +51,24 @@ function removerElementosSeVazio() {
     }))
 }
 
+function removerElementosSeApenasNumero() {
+    return createPipeableOperator(subscriber => ({
+        next(texto) {
+            const num = parseInt(texto.trim())
+            if(num !== num) {
+                subscriber.next(texto)
+            }
+        }
+    }))
+}
+
+
 function removerElementosSeIncluir(padraoTextual) {
     return function (array) {
         return array.filter(el => !el.includes(padraoTextual))
     }
 }
 
-function removerElementosSeApenasNumero(array) {
-    return array.filter(el => {
-        const num = parseInt(el.trim())
-        return num !== num
-    })
-}
 
 function removerSimbolos(simbolos) {
     return function (array) {
